@@ -270,7 +270,7 @@
     <repositories>
         <repository>
             <id>gcm-server-repository</id>
-            <url>https://raw.github.com/whispersystems/maven/master/gcm-server/releases/</url>
+            <url>https://raw.gitee.com/whispersystems/maven/master/gcm-server/releases/</url>
         </repository>
     </repositories>
 

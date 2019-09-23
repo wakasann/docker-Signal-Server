@@ -66,7 +66,7 @@ services:
       - minio
     entrypoint: >
       /bin/sh -c "
-      /usr/bin/mc config host add myminio https://minio:9000 AKIAIG4ILCORMAJCS37A u8cQx07PvHJS8/zvr7q3IFY+w2toIYIJQ7vm1ETH;
+      /usr/bin/mc config host add myminio http://minio:9000 AKIAIG4ILCORMAJCS37A u8cQx07PvHJS8/zvr7q3IFY+w2toIYIJQ7vm1ETH;
       /usr/bin/mc rm -r --force myminio/signal-attachments-buu;
       /usr/bin/mc rm -r --force myminio/signal-profiles-buu;
       /usr/bin/mc mb myminio/signal-attachments-buu;

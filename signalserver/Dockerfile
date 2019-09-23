@@ -3,21 +3,10 @@ FROM ubuntu:14.04
 LABEL maintainer="57160608@go.buu.ac.th"
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
 # change ubuntu source
-RUN cp /etc/apt/source.list /etc/apt/source.list.backup
-
-COPY ./sources.list /etc/apt/source.list
-
-RUN echo "deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse" > /etc/apt/source.list
+RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak
+COPY ./sources.list /etc/apt/sources.list
 
 RUN apt-get update
 RUN apt-get install wget -y
