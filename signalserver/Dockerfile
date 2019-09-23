@@ -5,6 +5,9 @@ LABEL maintainer="57160608@go.buu.ac.th"
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # change ubuntu source
 RUN cp /etc/apt/source.list /etc/apt/source.list.backup
+
+COPY ./sources.list /etc/apt/source.list
+
 RUN echo "deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
 deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
 deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
