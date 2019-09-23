@@ -3,6 +3,19 @@ FROM ubuntu:14.04
 LABEL maintainer="57160608@go.buu.ac.th"
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+# change ubuntu source
+RUN cp /etc/apt/source.list /etc/apt/source.list.backup
+RUN echo "deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse" > /etc/apt/source.list
+
 RUN apt-get update
 RUN apt-get install wget -y
 
@@ -22,15 +35,17 @@ RUN apt-get install --reinstall ca-certificates-java
 
 # --> Install maven 3.5 <--
 RUN apt-get install maven -y
-RUN cd /usr/local && wget http://www-eu.apache.org/dist/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.tar.gz
-RUN cd /usr/local && tar xzf apache-maven-3.5.2-bin.tar.gz \ 
-    && ln -s apache-maven-3.5.2 apache-maven
+RUN cd /usr/local && wget http://mirror.bit.edu.cn/apache/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz
+RUN cd /usr/local && tar xzf apache-maven-3.5.4-bin.tar.gz \ 
+    && ln -s apache-maven-3.5.4 apache-maven
 RUN echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> /etc/profile.d/apache-maven.sh
 RUN echo "export M2_HOME=/usr/local/apache-maven" >> /etc/profile.d/apache-maven.sh
 RUN echo "export MAVEN_HOME=/usr/local/apache-maven" >> /etc/profile.d/apache-maven.sh
 RUN echo "export PATH=\${M2_HOME}/bin:\${PATH}" >> /etc/profile.d/apache-maven.sh
 RUN source /etc/profile.d/apache-maven.sh && mvn -version
 RUN java -version
+
+COPY ./maven/conf/settings.xml /usr/local/apache-maven-3.5.4/conf/settings.xml
 
 COPY ./ssl /ssl
 
